@@ -1,0 +1,68 @@
+#include<iostream>
+#include<algorithm>
+#include<cstring>
+#include<cstdlib>
+using namespace std;
+void leastcommonsubs(string first,string second,int len_first,int len_sec)
+{
+    int arr[len_first+1][len_sec+1];   //MAKING 2D ARRAY
+
+    for(int i=0;i<=len_first;i++)
+    {
+        for(int j=0;j<=len_sec;j++)  //FILLING THE  2D ARRAY  i FOR FIRST STRING AND J FOR SECOND STRING
+        {
+            if(i==0||j==0)
+                arr[i][j]=0;          //FIRST ROW AND COLUMN WILL BE 0
+            else if(first[i-1]==second[j-1])
+                arr[i][j]=arr[i-1][j-1]+1;  //IF CHAR AT I POS=CHAR AT J POS THEN DIAGONALLY ELEMENT WILL BE TAKEN
+            else
+                arr[i][j]=max(arr[i-1][j],arr[i][j-1]); //ELSE MAX OF CHAR AT I & J WILL BE TAKEN
+        }
+    }
+
+    int subs_len=arr[len_first][len_sec];   //LENGTH OF LONGESTCOMMON SUBSEQUENCE
+    int length=subs_len;
+
+    char output[subs_len+1];   //MAKING OUTPUT ARRAY FOR LONGEST COMMON SUBS
+
+    output[subs_len]='\0';   //FILLING FROM THE LAST
+
+    int i=len_first;
+    int j=len_sec;
+
+    while(i>0&&j>0)
+    {
+        if(first[i-1]==second[j-1])
+        {
+            output[subs_len-1]=first[i-1];  // CASE WHERE WE GO DIAGONALLY
+            i--;
+            j--;
+            subs_len--;
+        }
+        else if(arr[i-1][j]>arr[i][j-1])
+            i--;
+        else
+            j--;
+    }
+
+    //DISPLAY OUTPUT
+    cout<<"least common subsequence having length : "<<length<<" is : "<<output;
+
+}
+
+int main()
+{
+    string first;
+    string second;
+    cout<<"enter your first string:"<<endl;
+    getline(cin,first);    //TAKING INPUT FOR FIRST STRING
+    cout<<"enter your second string:"<<endl;
+    getline(cin,second);   //TAKING INPUT FOR SECOND STRING
+
+    int len_first=first.length();    //FINDING FIRST LENGTH
+    int len_sec=second.length();     //FINDING SECOND LENGTH
+    leastcommonsubs(first,second,len_first,len_sec);   //CALLING FUNCTION
+
+    return 0;
+
+}
