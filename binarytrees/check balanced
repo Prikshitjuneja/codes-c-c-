@@ -1,0 +1,37 @@
+Balanced Binary Tree:
+A empty binary tree or binary tree with zero nodes is always balanced. For a non empty binary tree to be balanced, following conditions must be met:
+1. The left and right subtrees must be balanced.
+2. |hL - hR| <= 1, where hL is the height or depth of left subtree and hR is the height or depth of right subtree.    
+
+
+#include <algorithm>
+#include <cstdlib>
+int getheightsubtree(BinaryTreeNode<int>*root)
+{
+        if(root==NULL)
+		{
+			return 0;
+		}
+		
+		return 1+max(getheightsubtree(root->left),getheightsubtree(root->right));
+}
+bool isBalanced(BinaryTreeNode<int> *root) {
+	// Write your code here
+	if(root==NULL)
+	return true;
+
+	bool ans_left=isBalanced(root->left);
+	bool ans_right=isBalanced(root->right);
+
+	bool ans=ans_left&&ans_right;
+	int height_left=getheightsubtree(root->left);
+	int height_right=getheightsubtree(root->right);
+
+	bool height_ans=false;
+	if(abs(height_left-height_right)<=1)
+	height_ans=true;
+
+
+
+	return ans&&height_ans;
+}
