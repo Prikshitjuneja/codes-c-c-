@@ -1,0 +1,24 @@
+#include<iostream>
+#include<math.h>
+using namespace std;
+
+int main() {
+	
+    long long int n;
+    cin>>n;
+    int digit,sum=0;
+    int count=0;
+    int decimal;
+    
+    while(n!=0)
+    {
+        digit=n%10;
+        decimal=pow(2,count)*digit;
+        sum=sum+decimal;
+        n=n/10;
+        count++;
+        
+    }
+    cout<<sum<<endl;
+	
+}
