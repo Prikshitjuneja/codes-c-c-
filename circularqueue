@@ -1,0 +1,72 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define max_size 5
+int front=-1;
+int rear=-1;
+int queue[max_size];
+void enqueue(int x);
+void dequeue();
+int main()
+{
+       while(1)
+
+  {int x;
+  int choice;
+  printf("enter the choice:\n 1 for enqueue operation:\n 2 for dequeue opeartion\n 3 for print the queue\n 4 for exit\n");
+  scanf("%d",&choice);
+      switch(choice)
+      {
+      case 1:
+
+        printf("enter the value of an element u want to insert\n");
+        scanf("%d",&x);
+        enqueue(x);
+        break;
+      case 2:
+        printf("the top most elment will be deleted\n");
+        dequeue();
+        break;
+      case 3:
+        printf("the elements of queue will be\n");
+        for(int i=front;i!=rear;(i=i+1)%(max_size))
+        {
+            printf("%d\n",queue[i]);
+        }break;
+      case 4:
+        exit(0);
+        break;
+      }
+  }
+}
+
+void enqueue(int x)
+{
+    if((front==0&&rear==max_size-1)||(front==rear+1))
+        printf("overflow!!");
+    if(rear==-1)
+    {
+        front++;
+        rear++;
+
+    }
+    else{
+        if((front>0&&front<rear)&&(rear=max_size-1))
+            rear=0;
+        else
+            rear++;
+
+    }queue[rear]=x;
+}
+void dequeue()
+{
+    if(front==-1)
+        printf("empty!!");
+
+int x=queue[front];
+if(front==rear)
+    rear=front=-1;
+
+else
+    front=((front+1)%max_size);
+printf("deleted element will be %d\n",x);
+}
