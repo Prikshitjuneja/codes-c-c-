@@ -1,0 +1,85 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+void count_sort(int*arr,int n,int pos)
+{
+
+
+//initialising count array...size of count is fixed as number of digits are 0-9.
+    int count_arr[10]={0};
+    for(int i=0;i<n;i++)
+    {
+        count_arr[(arr[i]/pos)%10]++;
+//(arr[i]/pos)%10 is used to decided digit upon which count sort have to apply
+  }
+    //updating count array
+    for(int i=1;i<=10;i++)
+    {
+        count_arr[i]=count_arr[i]+count_arr[i-1];
+
+    }
+
+//creating and updating output array
+    int output[n];
+    for(int i=n-1;i>=0;i--)
+    {
+        output[--count_arr[(arr[i]/pos)%10]]=arr[i];
+
+
+
+    }
+    //copying output array in input array
+    for(int i=0;i<n;i++)
+    {
+        arr[i]=output[i];
+    }
+
+
+}
+
+void radix_sort(int *arr,int n)
+{
+   //finding maximum element
+    int maximum=arr[0];
+    for(int i=1; i<n; i++)
+    {
+        if(arr[i]>maximum)
+            maximum=arr[i];
+    }
+    //deciding frequency of count sort
+    for(int pos=1;maximum/pos>0;pos*=10)
+    {
+        count_sort(arr,n,pos);
+    }
+
+}
+
+
+int main()
+{
+    int n;
+    cout<<"enter the size of array"<<endl;
+    cin>>n;
+    int arr[n];
+    //taking input
+    for(int i=0; i<n; i++)
+    {
+        cin>>arr[i];
+    }
+    radix_sort(arr,n);
+
+    cout<<"array after sorting will be:"<<endl;
+
+//printing array
+    for(int i=0;i<n;i++)
+    {
+        cout<<arr[i]<<' ';
+
+    }
+    cout<<endl;
+
+
+
+}
+
