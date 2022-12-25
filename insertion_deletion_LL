@@ -1,0 +1,144 @@
+ //insertion and deletion
+
+#include<stdio.h>
+#include<stdlib.h>
+void create();
+void print();
+void insert_begin();
+void insert_end();
+void del_at_begin();
+void del_at_end();
+struct node{
+int data;
+struct node*next;
+};
+struct node*head,*temp,*newnode;
+int main()
+{
+
+    create();
+    printf("original linked list\n");
+    print();
+    printf("enter 1 for insert_begin\n 2for insert_end\n 3 for del_begin\n 4 for del_end\n 5 for exit\n");
+   int opern;
+   scanf("%d",&opern);
+   switch(opern)
+   {case 1:
+   insert_begin();
+   break;
+   case 2:
+   insert_end();
+   break;
+   case 3:
+   del_at_begin();
+   break;
+   case 4:
+   del_at_end();
+   break;
+   case 5:
+   exit(0);
+
+
+}}
+void create()
+{
+head=NULL;
+int choice=1;
+    while(choice)
+    {
+        newnode=(struct node*) malloc(sizeof(struct node));
+        if(newnode==NULL)
+            printf("overflow!\n");
+            else{
+        int x;
+        printf("enter the value ofx\n");
+        scanf("%d",&x);
+         newnode->data=x;
+        if(head==NULL)
+        {
+            head=temp=newnode;
+        }
+        else{
+            temp->next=newnode;
+            temp=temp->next;
+        }}
+
+    printf("\nenter 1 if you want to insert node and 0 if you do not:\n");
+    scanf("%d",&choice);
+    }
+}
+
+void print()
+{
+ temp=head;
+ printf("the elements of linked list will be:\n");
+ while(temp!=0)
+ {
+printf("%d ",temp->data);
+ temp=temp->next;
+ }
+}
+void insert_begin()
+{
+   newnode=(struct node*) malloc(sizeof(struct node));
+        if(newnode==NULL)
+            printf("overflow!\n");
+            else{
+        int x;
+        printf("\nenter the value ofx\n");
+        scanf("%d",&x);
+         newnode->data=x;
+         newnode->next=head;
+         head=newnode;
+          print();
+}
+}
+void insert_end()
+{
+     newnode=(struct node*) malloc(sizeof(struct node));
+        if(newnode==NULL)
+            printf("overflow!\n");
+            else{
+        int x;
+        printf("\n enter the value ofx\n");
+        scanf("%d",&x);
+         newnode->data=x;
+         temp=head;
+         while(temp->next!=0)
+         {
+             temp=temp->next;
+         }
+         temp->next=newnode;
+         newnode->next=NULL;
+         print();
+
+}
+}
+void del_at_begin()
+{
+    temp=head;
+    head=head->next;
+    free(temp);
+    print();
+}
+void del_at_end()
+{
+    struct node*prevnode;
+   temp=head;
+         while(temp->next!=0)
+         {
+             prevnode=temp;
+             temp=temp->next;
+         }
+         if(temp==head)
+         head=NULL;
+         else
+         prevnode->next=NULL;
+         free(temp);
+         print();
+
+}
+
+
+
+
