@@ -1,0 +1,55 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+
+void shell_sort(int*arr,int n)
+{
+    for(int gap=n/2;gap>=1;gap/=2)  //GAP IS TO DECIDE WHICH ELEMENTS TO BE COMPARED.
+                                    // IF GAP=1 THEN BASICALLY INSERTION SORT.
+    {
+        for(int j=gap;j<n;j++)
+        {
+            for(int i=j-gap;i>=0;i-=gap) //I=I-GAP AS TO CHECK PRECEDED ELEMENTS INITIALLY I WILL BE 0.
+                                         //PERFORMING GAPWISE COMPARISION
+            {
+                if(arr[i+gap]>arr[i])
+                    break;
+                else
+                {
+                    int t=arr[i+gap];
+                    arr[i+gap]=arr[i];
+                    arr[i]=t;
+                }
+            }
+        }
+    }
+}
+
+int main()
+{
+    int n;
+    cout<<"enter the size of array"<<endl;
+    cin>>n;
+    int arr[n];
+    //taking input
+    for(int i=0; i<n; i++)
+    {
+        cin>>arr[i];
+    }
+    shell_sort(arr,n);
+
+    cout<<"array after sorting will be:"<<endl;
+
+//printing array
+    for(int i=0;i<n;i++)
+    {
+
+        cout<<arr[i]<<' ';
+
+    }
+    cout<<endl;
+
+
+
+}
+
