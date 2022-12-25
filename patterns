@@ -1,0 +1,369 @@
+Print the following pattern
+Pattern for N = 4
+
+star pattern
+
+The dots represent spaces.
+
+#include<iostream>
+using namespace std;
+
+
+int main(){
+
+    int n;
+    cin>>n;
+    int i=1;
+    while(i<=n)
+    {
+        int k=1;
+        while(k<=n-i)
+        {
+            cout<<' ';
+            k++;
+        }
+        int j=1;
+        while(j<=(2*i)-1)
+        {
+            cout<<'*';
+            j++;
+
+        }
+        // j=i-1;
+        // while(j>=1)
+        // {
+        //     cout<<'*';
+        //     j--;
+        // }
+        cout<<endl;
+        i++;
+    }
+
+}
+
+
+//mirror number pattern
+
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int n;
+    cin>>n;
+    int i=1;
+    while(i<=n)
+    {
+        int k=1;
+        while(k<=n-i)
+        {
+            cout<<" ";
+            k++;
+        }
+        int j=1;
+        int val=1;
+        while(j<=i)
+        {
+            cout<<val;
+            val++;
+            j++;
+            
+        }
+        cout<<endl;
+        i++;
+    }
+    }
+
+   //inverted number pattern
+   
+   #include<iostream>
+using namespace std;
+
+
+int main()
+{
+    int n;
+    cin>>n;
+    int i=1;
+    while(i<=n)
+    {
+        int j=1;
+        while(j<=n-i+1)
+        {
+            cout<<n-i+1;
+            j++;
+        }
+        cout<<endl;
+        i++;
+    }
+        
+}
+
+
+//triangle of numbers
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin>>n;
+    int i=1;
+    while(i<=n)
+    {
+        int k=1;
+        while(k<=n-i)
+        {
+            cout<<' ';
+            k++;
+        }
+        int j=1;
+        int start=i;
+        while(j<=i)
+        {
+            cout<<start;
+            j++;
+            start++;
+        }
+        j=i-1;
+        int dec=2*i-2;
+        while(j>=1)
+        {
+            cout<<dec;
+            j--;
+            dec--;
+        }
+        
+        cout<<endl;
+        i++;
+    }
+}
+
+
+//diamond of stars
+
+#include<iostream>
+using namespace std;
+
+
+int main() {
+    
+   int n;
+    cin>>n;
+    int n1=(n+1)/2;
+    int n2=n1-1;
+    int i=1;
+    while(i<=n1)
+    {
+        int k=1;
+        while(k<=n1-i)
+        {
+            cout<<' ';
+            k++;
+            
+        }
+        int j=1;
+        while(j<=2*i-1)
+        {
+            cout<<'*';
+            j++;
+        }
+        cout<<endl;
+        i++;
+    }
+    i=n2;
+    while(i>=1)
+    {
+        int k=1;
+        while(k<=n2-i+1)
+        {
+            cout<<' ';
+            k++;
+        }
+        int j=2*i-1;
+        while(j>=1)
+        {
+            cout<<'*';
+            j--;
+        }
+        cout<<endl;
+        i--;
+    }
+    
+}
+
+
+//square pattern
+#include<iostream>
+using namespace std;
+
+
+int main(){
+
+int n;
+    cin>>n;
+    
+    int i=1;
+    while(i<=n)
+    {
+        int j=1;      
+        while(j<=n)
+        {
+            cout<<n;
+            j++;
+        }
+        cout<<endl;
+        i++;
+    }
+  
+}
+//triangular starpattern
+#include<iostream>
+using namespace std;
+
+
+int main(){
+    int n;
+    cin>>n;
+    int i=1;
+    while(i<=n)
+    {
+        
+        int j=1;
+        while(j<=i)
+        {
+            cout<<'*';
+            j++;
+        }
+        cout<<endl;
+        i++;
+    }
+    
+    //triangular number pattern
+    #include<iostream>
+using namespace std;
+
+
+int main(){
+
+   int n;
+    cin>>n;
+    int i=1;
+    while(i<=n)
+    {
+        
+        int j=1;
+        while(j<=i)
+        {
+            cout<<i;
+            j++;
+        }
+        cout<<endl;
+        i++;
+  
+}
+}
+
+
+//reverse number pattern
+#include<iostream>
+using namespace std;
+
+
+int main(){
+    int n;
+    cin>>n;
+    int i=1;
+    while(i<=n)
+    {
+        
+        int j=1;
+        while(j<=i)
+        {
+            cout<<i-j+1;
+            j++;
+        }
+        cout<<endl;
+        i++; 
+
+     
+}
+}
+
+//alpha pattern
+
+#include<iostream>
+using namespace std;
+
+
+int main(){
+    
+    int n;
+    cin>>n;
+    int i=1;
+    while(i<=n)
+    {
+        int j=1;
+        while(j<=i)
+        {
+            char ch='A'+i-1;
+            cout<<ch;
+            j++;
+        }
+        cout<<endl;
+        i++;
+    }
+    
+}
+
+//character pattern
+
+#include<iostream>
+using namespace std;
+
+
+int main(){
+     int n;
+    cin>>n;
+    int i=1;
+    while(i<=n)
+    {
+        int j=1;
+        while(j<=i)
+        {
+            char ch='A'+i-1+j-1;
+            cout<<ch;
+            j++;
+        }
+        cout<<endl;
+        i++;
+
+     
+  
+}
+}
+//interesting alphabets
+
+#include<iostream>
+using namespace std;
+
+
+int main() {
+    
+     int n;
+    cin>>n;
+    int i=1;
+    while(i<=n)
+    {
+        int j=1;
+        while(j<=i)
+        {
+            char ch='A'+n-1-i+j;
+            cout<<ch;
+            j++;
+        }
+        cout<<endl;
+        i++;
+    
+}
+}
