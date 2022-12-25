@@ -1,0 +1,44 @@
+BinaryTreeNode<int>* buildtreehelper(int*postorder,int pst,int pend ,int *inorder,int inst,int inend)
+{
+	if(pst>pend||inst>inend)
+	return NULL;
+
+	int rootdata=postorder[pend];
+	int root_index=-1;
+	for(int i=0;i<=inend;i++)
+	{
+		if(inorder[i]==rootdata)
+		{
+			root_index=i;
+			break;
+		}
+	}
+
+	int lpst,lpend,rpst,rpend,linst,linend,rinst,rinend;
+	linst=inst;
+	linend=root_index-1;
+    lpst=pst;
+	lpend=linend-linst+lpst;
+
+	rinst=root_index+1;
+	rinend=inend;
+	rpend=pend-1;
+	rpst=rpend-rinend+rinst;
+
+BinaryTreeNode<int>*root=new BinaryTreeNode<int>(rootdata);
+root->left=buildtreehelper(postorder,  lpst,  lpend, inorder,  linst, linend);
+root->right=buildtreehelper(postorder, rpst, rpend, inorder, rinst, rinend);
+
+return root;
+
+}
+BinaryTreeNode<int>* buildTree(int *postorder, int postLength, int *inorder, int inLength) {
+    // Write your code here
+
+	int pst,pend,inst,inend;
+	pst=inst=0;
+	pend=postLength-1;
+	inend=inLength-1;
+	return buildtreehelper(postorder,pst,pend,inorder,inst,inend);
+
+}
