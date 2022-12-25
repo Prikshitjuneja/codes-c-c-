@@ -1,0 +1,37 @@
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+int tdp[100][100];//dynamic top down approach
+int chainmatrixmult(int *matrix,int i,int j)
+{
+    if(i==j)
+        {
+            tdp[i][j]=0;   //means single matrix left in array base case for recursion
+            return 0;
+        }
+        if(tdp[i][j]!=-1)
+        {
+            return tdp[i][j]; // to manage overlapping case
+        }
+    int ans=INT_MAX;
+    for(int k=i;k<j;k++)   // k is a position where we break down the pbm
+    {
+        // chainmatrixmult(matrix,i,k) calling recursion for first part
+        // chainmatrixmult(matrix,k+1,j) calling recursion for second part
+        //matrix[i-1]*matrix[j]*matrix[k] is for calculating steps in product of matrices
+        int temp=chainmatrixmult(matrix,i,k)+chainmatrixmult(matrix,k+1,j)+matrix[i-1]*matrix[j]*matrix[k];
+         ans=min(ans,temp);
+    }
+    tdp[i][j]=ans; //putting no. of steps in table
+    return ans;
+
+}
+int main()
+{
+    int matrix[]={10,20,30};
+    memset(tdp,-1,sizeof tdp);    //setting all enteries to -1 in table
+    int n=sizeof(matrix)/sizeof(int);
+
+    cout<<"number of min operations are : "<<chainmatrixmult(matrix,1,n-1)<<endl;
+
+}
