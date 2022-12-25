@@ -1,0 +1,12 @@
+#include<stdio.h>
+int main()
+{
+    printf("***REVERSE TABLE OF 10***\n\n");
+
+    for(int i=10; i; i--)
+    {
+
+        printf("10 x %d =%d \n\n",i,10*i);
+    }
+    return 0;
+}
