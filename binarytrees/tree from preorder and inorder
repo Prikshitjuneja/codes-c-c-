@@ -1,0 +1,47 @@
+BinaryTreeNode<int>* buildTree(int *preorder,int prest,int preend,int *inorder,int inst,int inend)
+{
+	if(prest>preend||inst>inend)
+	return NULL;
+	
+	int rootdata=preorder[prest];
+	int rootindex=-1;
+	for(int i=0;i<=inend;i++)
+	{
+		if(inorder[i]==rootdata)        //finding root element in inorder
+		{
+			rootindex=i;
+			break;
+		}
+	}
+
+	BinaryTreeNode<int>*root=new BinaryTreeNode<int>(rootdata);
+	int linst,linend,rinst,rinend,rprest,rpreend,lprest,lpreend;
+
+	lprest=prest+1;            
+	linst=inst;
+	linend=rootindex-1;
+	lpreend=linend-linst+lprest;       //preend-prest=inend-inst
+
+	rinst=rootindex+1;
+	rinend=inend;
+	rpreend=preend;
+    rprest = rpreend - rinend + rinst; // preend-prest=inend-inst
+
+        root->left=buildTree(preorder,  lprest,  lpreend, inorder, linst, linend);
+	root->right=buildTree(preorder,rprest, rpreend, inorder, rinst, rinend);
+
+	return root;
+
+
+
+
+}
+BinaryTreeNode<int>* buildTree(int *preorder, int preLength, int *inorder, int inLength) {
+    // Write your code here
+	int prest,preend,inst,inend;
+	prest=inst=0;
+	preend=preLength-prest-1;
+	inend=inLength-inst-1;
+	
+	 return buildTree(preorder,prest,preend , inorder, inst,inend );
+}
