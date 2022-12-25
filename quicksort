@@ -1,0 +1,76 @@
+int partition(int input[],int st,int end)
+{
+
+   int pivot=input[st];
+    int size=end-st+1;
+    int count =0;
+    for(int i=st+1;i<size;i++)
+    {
+        if(input[i]<pivot)
+        {
+            count++;
+        }
+    }
+    int temp=input[st];
+    input[st]=input[st+count];
+    input[st+count]=temp;
+    int j=st;
+    int k=end;
+    while(j<count&&k>count)
+    {
+        while(input[j]<pivot)
+            j++;
+        while(input[k]>=pivot)
+            k--;
+        if(input[j]>pivot&&input[k]<pivot)
+        {
+            int t=input[j];
+            input[j]=input[k];
+            input[k]=t;
+            j++;
+            k--;
+        }
+    }
+    return count;
+
+
+
+}
+
+void sorting(int input[],int st,int end)
+{
+
+    if(st>=end)
+        return;
+    int key=partition(input,st,end);
+    sorting(input,st,key-1);
+    sorting(input,key+1,end);
+}
+void quickSort(int input[], int size) {
+
+    sorting(input,0,size-1);
+
+}
+#include<iostream>
+
+using namespace std;
+
+
+int main(){
+    int n;
+    cin >> n;
+
+    int *input = new int[n];
+
+    for(int i = 0; i < n; i++) {
+        cin >> input[i];
+    }
+
+    quickSort(input, n);
+    for(int i = 0; i < n; i++) {
+        cout << input[i] << " ";
+    }
+
+    delete [] input;
+
+}
