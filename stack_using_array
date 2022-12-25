@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<stdlib.h>
+int top=-1;
+#define max_size 5
+int stack[max_size];
+void push(int x);
+int pop(void);
+int main()
+{
+
+  while(1)
+
+  {int x;
+  int choice;
+  printf("enter the choice:\n 1 for push operation:\n 2 for pop opeartion\n 3 for print the stack\n 4 for exit\n");
+  scanf("%d",&choice);
+      switch(choice)
+      {
+      case 1:
+
+        printf("enter the value of an element u want to insert\n");
+        scanf("%d",&x);
+        push(x);
+        break;
+      case 2:
+        printf("the top most elment will be deleted\n");
+        pop();
+        break;
+      case 3:
+        printf("the elements of stack will be\n");
+        for(int i=0;i<=top;i++)
+        {
+            printf("%d\n",stack[i]);
+        }break;
+      case 4:
+        exit(0);
+        break;
+      }
+  }
+}
+void push(int x)
+{
+    if(top==max_size-1)
+        printf("overflow!!\n");
+    else{
+        top=top+1;
+        stack[top]=x;
+    }
+}
+int pop()
+{
+    if(top==-1)
+        printf("stack is empty\n");
+    else{
+        int x=stack[top];
+        top--;
+        printf(" the deleted element is : %d\n",x);
+    }
+}
