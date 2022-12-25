@@ -1,0 +1,36 @@
+Output Format:
+The only line of output prints the node data in a top to down fashion with reference to the root. 
+Node data in the left subtree will be printed first and then the right subtree.
+A single space will separate them all.
+
+Sample Input 2:
+2 4 5 6 -1 -1 7 20 30 80 90 -1 -1 -1 -1 -1 -1 -1 -1
+Sample Output 2:
+6 7  
+
+
+void printNodesWithoutSibling(BinaryTreeNode<int> *root) {
+    // Write your code here
+    if(root==NULL)
+    return;
+
+   if(root->left==NULL&&root->right!=NULL)
+   {
+       cout<<root->right->data<<' ';
+       printNodesWithoutSibling(root->right);
+   }
+   else if(root->left!=NULL&&root->right==NULL)
+   {
+       cout<<root->left->data<<' ';
+       printNodesWithoutSibling(root->left);
+   }
+   else if(root->left!=NULL&&root->right!=NULL)
+   {
+       printNodesWithoutSibling(root->left);
+       printNodesWithoutSibling(root->right);
+   }
+   else
+         return;
+
+         return;
+}
