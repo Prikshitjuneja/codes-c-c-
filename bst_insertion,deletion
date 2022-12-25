@@ -1,0 +1,130 @@
+#include<iostream>
+using namespace std;
+#include<cstddef>
+class TreeNode
+{
+public:
+    int data;
+    TreeNode *left,*right;
+
+    TreeNode(int data)
+    {
+        this->data=data;
+        left=NULL;
+        right=NULL;
+    }
+};
+void insert_node(TreeNode*&root,int value)    //making tree
+{
+    TreeNode *newnode=new TreeNode(value);
+    if(root==NULL)
+    {
+        root=newnode;
+        return;
+    }
+    if(root->data>value)
+    {
+        insert_node(root->left,value);
+    }
+    else if(root->data<value)
+    {
+        insert_node(root->right,value);
+    }
+    return;
+}
+int get_height(TreeNode*root)
+{
+    if(root==NULL)   // to avid runtime eror.
+        return 0;
+    int heightleft=get_height(root->left)+1;    //heigt of left subtree
+    int heightright=get_height(root->right)+1;   //height of right subtree
+    return (heightleft>heightright?heightleft:heightright);   //return max of both height
+}
+/*void print_tree(TreeNode *root)
+{
+    //preorder
+
+    if(root==NULL)
+        return;
+
+    cout<<root->data<<' ';
+    print_tree(root->left);
+    print_tree(root->right);
+
+    return;
+}
+TreeNode*minimum(TreeNode*node)
+{
+    //to get inorder successor
+    if(node->left==NULL)
+        return node;
+    TreeNode*small=minimum(node->left);
+    if(node->data>small->data)
+        return small;
+    else
+        return node;
+}
+TreeNode*delete_node(TreeNode*root,int data)
+{
+    cout<<endl;
+    if(root->data>data)
+    {
+        root->left= delete_node(root->left,data);   //changes occur in left part
+        return root;
+}
+    else if(root->data<data)
+    {
+        root->right=delete_node(root->right,data);   //changes occur in right part
+        return root;
+    }
+    else
+    {
+        //if root node has to delete
+        if(root->left==NULL&&root->right==NULL)   //after deletion tree becomes empty root=null
+            return NULL;
+
+        else if(root->left==NULL)
+        {
+
+            TreeNode*temp=root->right;         //preserving root->right
+            delete root;                       //deleting root
+            return temp;                       //temp will return as a new root
+        }
+        else if(root->right==NULL)
+        {
+            TreeNode*temp=root->left;           //preserving root->left
+            delete root;                        //deleting root
+            return temp;                        //temp will return as a new root
+        }
+        else
+        {
+            TreeNode*temp=minimum(root->right);//finding inorder successor
+            root->data=temp->data;
+            root->right=delete_node(root->right,temp->data);  //recursion delete_node(root->right,temp->data)
+            return root;
+        }
+    }
+
+}*/
+
+int main()
+{
+    TreeNode*root=NULL;
+    insert_node(root,30);
+    insert_node(root,15);
+    insert_node(root,40);
+    insert_node(root,10);
+    /*cout<<"preorder of tree is:"<<endl;
+    print_tree(root);
+
+    root=delete_node(root,40);
+    cout<<"tree after deleting node having value 40 will be:"<<endl;
+    print_tree(root);*/
+    /*root=delete_node(root,30);
+    print_tree(root);*/
+    cout<<"height of tree will be:"<<get_height(root)<<endl;
+
+    return 0;
+
+
+}
