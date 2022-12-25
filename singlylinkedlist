@@ -1,0 +1,62 @@
+//implementation of linked list
+#include<stdio.h>
+#include<stdlib.h>
+void create();
+void print();
+struct node{
+int data;
+struct node*next;
+};
+struct node*head,*temp,*newnode;
+int main()
+{
+
+    create();
+    print();
+
+}
+void create()
+{
+
+    head=NULL;
+int choice=1;
+    while(choice!=0)
+    {
+
+
+        newnode=(struct node*) malloc(sizeof(struct node));
+        if(newnode==NULL)
+            printf("overflow!\n");
+            else{
+        int x;
+        printf("enter the value ofx\n");
+        scanf("%d",&x);
+         newnode->data=x;
+        if(head==NULL)
+        {
+            head=temp=newnode;
+        }
+        else{
+            temp->next=newnode;
+            temp=temp->next;
+        }
+
+
+
+        }
+
+    printf("enter 1 if you want to insert node and 0 if you do not:\n");
+    scanf("%d",&choice);
+    }
+}
+
+void print()
+{
+ temp=head;
+ printf("the elements of linked list will be:\n");
+ while(temp!=0)
+ {
+printf("%d ",temp->data);
+ temp=temp->next;
+ }
+}
