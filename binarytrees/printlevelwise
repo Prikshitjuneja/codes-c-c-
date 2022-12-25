@@ -1,0 +1,55 @@
+For a given a Binary Tree of type integer, print the complete information of every node, when traversed in a level-order fashion.
+To print the information of a node with data D, you need to follow the exact format :
+
+           D:L:X,R:Y
+
+Where D is the data of a node present in the binary tree. 
+X and Y are the values of the left(L) and right(R) child of the node.
+Print -1 if the child doesn't exist.
+
+
+template <typename T>
+	class BinaryTreeNode {
+    	public : 
+    	T data;
+    	BinaryTreeNode<T> *left;
+    	BinaryTreeNode<T> *right;
+
+    	BinaryTreeNode(T data) {
+        	this -> data = data;
+        	left = NULL;
+        	right = NULL;
+    	}
+	};
+void printLevelWise(BinaryTreeNode<int> *root) {
+	// Write your code here
+	if(root==NULL)
+	return;
+        queue<BinaryTreeNode<int> *> pendingnodes;
+
+        pendingnodes.push(root);
+
+        while (pendingnodes.size() != 0) {
+          BinaryTreeNode<int> *frontnode = pendingnodes.front();
+          cout << frontnode->data << ":";
+
+          if (frontnode->left != NULL) {
+            cout << "L:" << frontnode->left->data << ",";
+            pendingnodes.push(frontnode->left);
+          }
+         else if (frontnode->left == NULL) {
+            cout << "L:" << -1 << ",";
+            }
+
+          if (frontnode->right != NULL) {
+            cout << "R:" << frontnode->right->data;
+            pendingnodes.push(frontnode->right);
+          }
+         else if (frontnode->right == NULL) {
+            cout << "R:" << -1 ;
+            
+          }
+          cout << endl;
+          pendingnodes.pop();
+        }
+}
