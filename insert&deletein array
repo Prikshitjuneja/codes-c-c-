@@ -1,0 +1,61 @@
+#include<stdio.h>
+void insert(int arr[],int n,int pos,int key);
+void printarr(int arr[],int n);
+void delet(int arr[],int n,int pos);
+int main()
+{
+    int n=5;
+    int arr[50]={4,5,8,9,10};
+    int pos,key,choice;
+
+    printf("original array is:\n");
+    printarr(arr,n);
+    printf("enter the choice *1* for insertion and *0*for deletion\n");
+    scanf("%d",&choice);
+    switch(choice)
+    {
+    case 1:
+        printf("enter the position and key u want to insert an element\n");
+    scanf("%d %d",&pos,&key);
+    n++;
+    insert(arr,n,pos,key);
+    printf("array after inserting the element\n");
+    printarr(arr,n);
+    break;
+
+    case 0:
+        printf("enter the position from which u want to delete\n");
+        scanf("%d",&pos);
+        n--;
+        delet(arr,n,pos);
+         printf("array after deleting the element\n");
+    printarr(arr,n);
+    }
+
+
+}
+void insert(int arr[],int n,int pos,int key)
+{
+    for(int i=n-1;i>=pos;i--)
+    {
+        arr[i]=arr[i-1];
+    }
+    arr[pos-1]=key;
+
+}
+void printarr(int arr[],int n)
+{
+    int i;
+    for(int i=0;i<n;i++)
+    {
+        printf("%d ",arr[i]);
+        printf("\n");
+    }
+}
+void delet(int arr[],int n,int pos)
+{
+    for(int i=pos;i<=n;i++)
+    {
+        arr[i-1]=arr[i];
+    }
+}
