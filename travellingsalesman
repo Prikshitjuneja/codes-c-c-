@@ -1,0 +1,48 @@
+#include<iostream>
+#include<algorithm>
+using namespace std;
+#define INT_MAX 999999
+int n=4;
+int dp[16][4];
+int dist[10][10]={{0,20,42,25},{20,0,30,34},{42,30,0,10},{25,34,10,0}};//matrix defines the graph
+
+int visited_all=(1<<n)-1;//if all cities have been visited i.e. setting mask
+
+//travelling salesman pbm function
+int tsp(int mask,int pos)//mask tells us about cities visited and pos tell abour current city
+{
+    if(mask==visited_all)
+        return dist[pos][0];   //base case to hit recursion
+
+        if(dp[mask][pos]!=-1)
+            return dp[mask][pos];  //if node already visited
+
+    int ans=INT_MAX;
+
+    for(int city=0;city<n;city++)
+    {
+        if((mask&(1<<city))==0) //city is not visited
+        {
+                                            //setting mask
+            int new_ans=dist[pos][city]+tsp(mask|(1<<city),city);
+            ans= min(ans,new_ans);
+        }
+    }
+    return  dp[mask][pos]=ans;
+}
+
+
+int main()
+{
+    for(int i=0;i<(1<<n);i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            dp[i][j]=-1;
+        }
+    }
+    cout<<"shortest distance for salesman is : "<<tsp(1,0)<<endl;
+    return 0;
+
+}
+
