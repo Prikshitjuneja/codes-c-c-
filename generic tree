@@ -1,0 +1,95 @@
+#include<iostream>
+#include<queue>
+#include"tree.h"
+using namespace std;
+TreeNode<int>*takeinput()
+{
+    int rootdata;
+    cout<<"enter the root data"<<endl;
+    cin>>rootdata;
+    TreeNode<int>*root=new TreeNode<int>(rootdata);
+    queue <TreeNode<int>*>pendingnodes;
+    pendingnodes.push(root);
+    while(pendingnodes.size()!=0)
+    {
+        TreeNode<int>*frontnode=pendingnodes.front();
+        pendingnodes.pop();
+        int numchild;
+        cout<<"enter number of child of "<<frontnode->data<<endl;
+        cin>>numchild;
+        for(int i=0;i<numchild;i++)
+        {
+            cout<<"enter the "<<i<<"th child of "<<frontnode->data<<endl;
+            int newnodedata;
+            cin>>newnodedata;
+            TreeNode<int>*child=new TreeNode<int>(newnodedata);
+            frontnode->children.push_back(child);
+            pendingnodes.push(child);
+        }
+
+    }
+    return root;
+   }
+   void print(TreeNode<int>*root)
+   {
+       if(root==NULL)
+        return;
+       cout<<root->data<<":" ;
+       for(int i=0;i<root->children.size();i++)
+       {
+           cout<<root->children[i]->data<<" ";
+       }
+       cout<<endl;
+       for(int i=0;i<root->children.size();i++)
+       {
+           print(root->children[i]);
+       }
+   }
+   void printlevelwise(TreeNode<int>*root)
+   {
+
+       queue<TreeNode<int>*>pendingnodes;
+       pendingnodes.push(root);
+       for(int i=0;i<root->children.size();i++)
+       {
+           pendingnodes.push(root->children[i]);
+       }
+       cout<<root->data<<":";
+
+
+   }
+   void deletetree(TreeNode<int>*root)
+   {
+       for(int i=0;i<root->children.size();i++)
+        deletetree(root->children[i]);
+
+       delete root;
+   }
+int main()
+{
+   TreeNode<int>*root=takeinput();
+   print(root);
+   deletetree(root);
+   print(root);
+
+}
+//treeclass
+#include<vector>
+#include<iostream>
+using namespace std;
+
+template <typename T>
+class TreeNode
+{
+    public:
+    int data;
+    vector <TreeNode<T>*> children;
+
+    TreeNode(T data)
+    {
+        this->data=data;
+
+    }
+
+};
+
