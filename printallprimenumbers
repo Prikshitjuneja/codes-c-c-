@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+int main(){
+
+    int n;
+    cin>>n;
+    cout<<2<<endl;
+    int i;
+    for(i=3;i<=n;i++)
+    {
+        bool prime=false;
+        int d;
+        for(d=2;d<i;d++)
+        {
+
+            if(i%d==0){
+                prime=true;
+            break;
+
+                }
+                }
+        if(prime==true)
+        {
+            continue;
+
+        }
+        cout<<i<<endl;
+
+    }
+}
+
+
