@@ -1,0 +1,41 @@
+For a given a Binary Tree of type integer, print it in a level order fashion where each level will be printed on a new line. Elements on every level will be printed in a linear fashion and a single space will separate them.
+
+Sample Input 1:
+10 20 30 40 50 -1 60 -1 -1 -1 -1 -1 -1 
+Sample Output 1:
+10 
+20 30 
+40 50 60 
+
+
+void printLevelWise(BinaryTreeNode<int> *root) {
+    // Write your code here
+	if(root==NULL)
+	return;
+
+	queue<BinaryTreeNode<int>*>pending_nodes;
+	pending_nodes.push(root);
+	pending_nodes.push(NULL);
+	while(pending_nodes.size()!=0)
+	{
+		BinaryTreeNode<int>*frontnode=pending_nodes.front();
+		if(frontnode!=NULL)
+		{
+			cout<<frontnode->data<<' ';
+			if(frontnode->left!=NULL)
+			pending_nodes.push(frontnode->left);
+			if(frontnode->right!=NULL)
+			pending_nodes.push(frontnode->right);
+			pending_nodes.pop();
+		}
+		else{
+			pending_nodes.pop();
+			if(pending_nodes.size()!=0)
+			{
+				cout<<endl;
+				pending_nodes.push(NULL);
+			}
+		}
+	}
+
+}
