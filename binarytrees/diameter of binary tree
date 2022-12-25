@@ -1,0 +1,25 @@
+pair<int,int>get_heightdiameter(BinaryTreeNode<int>*root)
+{     //diameter is max distance between any 2 nodes
+    //diameter=max(left height+right height,max(left diameter,right diameter))
+    if(root==NULL)
+    {
+       pair<int,int> p;    // here we use inbuilt pair class having first and second as element
+       p.first=0;
+       p.second=0;    //base case height =0 and diameter =0 for NUL tree
+       return p;
+    }
+    pair<int,int> p_left=get_heightdiameter(root->left);
+    pair<int,int> p_right=get_heightdiameter(root->right);
+
+    int height_left=p_left.first;
+    int diameter_left=p_left.second;
+    int height_right=p_right.first;
+    int diameter_right=p_right.second;
+
+    int height=1+max(height_left,height_right);
+    int diameter=max(height_left+height_right,max(diameter_left,diameter_right));
+    pair<int,int> ans;
+    ans.first=height;
+    ans.second=diameter;    //pair class ans contains the final height and diameter of tree
+    return ans;
+}
