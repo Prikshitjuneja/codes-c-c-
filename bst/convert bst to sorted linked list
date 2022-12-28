@@ -1,0 +1,95 @@
+Given a BST, convert it into a sorted linked list. You have to return the head of LL.
+
+
+
+/**********************************************************
+
+	Following are the Binary Tree Node class structure and the 
+	Node class structure
+
+	template <typename T>
+	class BinaryTreeNode {
+    	public: 
+    	T data;
+    	BinaryTreeNode<T> *left;
+    	BinaryTreeNode<T> *right;
+
+    	BinaryTreeNode(T data) {
+        	this->data = data;
+        	left = NULL;
+        	right = NULL;
+    	}
+	};
+
+	template <typename T>
+ 	class Node{
+    	public:
+    	T data;
+    	Node<T> *next;
+    
+    	Node(T data) {
+        	this->data = data;
+        	this->next = NULL;
+    	}
+ 	};
+
+***********************************************************/
+pair<Node<int>*,Node<int>*>get_head_tail(BinaryTreeNode<int>*root)
+{
+	//first contains head and second contains tail
+	if(root==NULL)
+	{
+		pair<Node<int>*,Node<int>*>ans;
+		ans.first=NULL;
+		ans.second=NULL;
+		return ans;
+	}
+	Node<int>*head=new Node<int>(root->data);
+	pair<Node<int>*,Node<int>*>left_part=get_head_tail(root->left);
+	Node<int>*l_head=left_part.first;
+	Node<int>*l_tail=left_part.second;
+	pair<Node<int>*,Node<int>*>right_part=get_head_tail(root->right);
+	Node<int>*r_head=right_part.first;
+	Node<int>*r_tail=right_part.second;
+
+        pair<Node<int> *, Node<int> *>ans;
+
+        if (l_head == NULL&&r_head==NULL) {
+         ans.first=head;
+		ans.second=head;
+        }
+		else if(l_head!=NULL&&r_head==NULL)
+		{
+			ans.first=l_head;
+			l_tail->next=head;
+			ans.second=head;
+
+		}
+		else if(l_head==NULL&&r_head!=NULL)
+		{
+			ans.first=head;
+			head->next=r_head;
+			ans.second=r_tail;
+		}
+		else{
+			ans.first=l_head;
+			l_tail->next=head;
+			head->next=r_head;
+			ans.second=r_tail;
+
+		}
+		return ans;
+
+       
+
+}
+
+Node<int>* constructLinkedList(BinaryTreeNode<int>* root) {
+	// Write your code here
+	if(root==NULL)
+	return NULL;
+
+        pair<Node<int>*, Node<int>*>output=get_head_tail(root);
+		return output.first;
+
+}
