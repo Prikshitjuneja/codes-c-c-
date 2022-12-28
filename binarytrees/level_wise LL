@@ -1,0 +1,94 @@
+Given a binary tree, write code to create a separate linked list for each level. You need to return the array which contains head of each level linked list.
+
+
+/**********************************************************
+
+	Following are the Binary Tree Node class structure and
+	the Node class structure
+
+	template <typename T>
+	class BinaryTreeNode {
+    	public: 
+    	T data;
+    	BinaryTreeNode<T> *left;
+    	BinaryTreeNode<T> *right;
+
+    	BinaryTreeNode(T data) {
+        	this->data = data;
+        	left = NULL;
+        	right = NULL;
+    	}
+	};
+
+	template <typename T>
+	class Node {
+		public:
+    	T data;
+    	Node<T> *next;
+    	Node(T data) {
+        	this->data=data;
+        	this->next=NULL;
+    	}
+	};
+
+***********************************************************/
+
+vector<Node<int>*> constructLinkedListForEachLevel(BinaryTreeNode<int> *root) {
+    // Write your code here
+	
+	if(root==NULL)
+	{
+		vector<Node<int>*>v;
+		v.push_back(NULL);
+		return v;
+
+	}
+	Node<int>*head=NULL;
+	Node<int>*tail=NULL;
+	vector<Node<int>*>v;
+	queue<BinaryTreeNode<int>*>pendingnodes;
+	pendingnodes.push(root);
+	pendingnodes.push(NULL);
+
+	while(pendingnodes.size()!=0)
+	{
+		BinaryTreeNode<int>*frontnode=pendingnodes.front();
+		if(frontnode!=NULL)
+		{
+			if(frontnode->left!=NULL)
+			pendingnodes.push(frontnode->left);
+			if(frontnode->right!=NULL)
+			pendingnodes.push(frontnode->right);
+			Node<int>*current=new Node<int>(frontnode->data);
+            
+			if(head==NULL&&tail==NULL)
+			head=tail=current;
+			
+			else 
+			{
+				tail->next=current;
+				tail=tail->next;
+			}
+			
+                   pendingnodes.pop();
+                  		 
+		 	
+		}
+	   else
+		{
+			pendingnodes.pop();
+		if(pendingnodes.size()!=0)
+		{
+			pendingnodes.push(NULL);
+			
+		}
+		v.push_back(head);
+			tail->next=NULL;
+			head=tail=NULL;
+
+		}
+		
+	}
+  
+	return v;
+}
