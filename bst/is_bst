@@ -1,0 +1,58 @@
+Note: Duplicate elements should be kept in the right subtree.
+
+
+//first method 
+bool is_bst(BinaryTreeNode<int>*root,int minimum=INT_MIN,int maximum=INT_MAX)
+{
+    if(root==NULL)
+    {
+        return true;
+
+    }
+    /*here we are putting constraints on every value from top to down
+    i.e. root->data lies between -inf to+inf. similarly root->left lies between min to root->data-1
+    and root->right lies between root->data to max*/
+    if(root->data<minimum||root->data>maximum)
+        return false;
+    int left_part=is_bst(root->left,minimum,root->data-1);
+    int right_part=is_bst(root->right,root->data,maximum);
+    return (left_part&&right_part);
+
+    //time complexity is o(N)
+
+
+}
+
+
+
+
+//second method time complexity is o(n*h)
+int maximum(BinaryTreeNode<int>*root)
+{
+    if(root==NULL)
+        return INT_MIN;
+    int maxi=max(root->data,max(maximum(root->left),maximum(root->right)));
+    return maxi;
+
+}
+int minimum(BinaryTreeNode<int>*root)
+{
+    if(root==NULL)
+        return INT_MAX;
+    int mini=min(root->data,min(minimum(root->left),minimum(root->right)));
+    return mini;
+
+
+}
+bool is_bst2(BinaryTreeNode<int>*root)
+{
+
+    if(root==NULL)
+        return true;
+    int left_max=maximum(root->left);
+    int right_min=minimum(root->right);
+
+    bool ans=(left_max<root->data&&right_min>root->data)&&(is_bst2(root->left)&&is_bst2(root->right));
+    return ans;
+}
+
