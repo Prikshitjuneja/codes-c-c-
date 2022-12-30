@@ -1,0 +1,71 @@
+Structurally identical
+Send Feedback
+Given two generic trees, return true if they are structurally identical. Otherwise return false.
+Structural Identical
+If the two given trees are made of nodes with the same values and the nodes are arranged in the same way, then the trees are called identical.  
+
+
+/************************************************************
+ 
+    Following is the structure for the TreeNode class
+
+    template <typename T>
+    class TreeNode {
+     public:
+        T data;
+        vector<TreeNode<T>*> children;
+    
+        TreeNode(T data) {
+            this->data = data;
+        }
+    
+        ~TreeNode() {
+            for (int i = 0; i < children.size(); i++) {
+                delete children[i];
+            }
+        }
+    };
+
+************************************************************/
+int count_nodes(TreeNode<int>*root)
+{
+    if(root==NULL)
+    return 0;
+    int count=1;
+    for(int i=0;i<root->children.size();i++)
+    count+=count_nodes(root->children[i]);
+
+    return count;
+
+}
+
+
+bool areIdentical(TreeNode<int> *root1, TreeNode<int> * root2) {
+    // Write your code here
+    if(root1==NULL&&root2==NULL)
+    return true;
+
+    else if(root1==NULL)
+    return false;
+
+    else if (root2==NULL)
+    return false;
+
+   int count1=count_nodes(root1);
+    int count2=count_nodes(root2);
+
+    if(count1!=count2)
+    return false;
+
+    bool ans=false;
+if(root1->data==root2->data)
+    {
+        ans=true;
+        for(int i=0;i<root1->children.size();i++)
+    {
+        ans=areIdentical(root1->children[i],root2->children[i]);
+    }
+    return ans;
+    }
+
+}
