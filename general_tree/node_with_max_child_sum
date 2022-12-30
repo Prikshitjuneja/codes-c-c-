@@ -1,0 +1,59 @@
+Node with maximum child sum
+Send Feedback
+Given a generic tree, find and return the node for which sum of its data and data of all its child nodes is maximum. In the sum, data of the node and data of its immediate child nodes has to be taken.
+
+
+
+/************************************************************
+
+    Following is the structure for the TreeNode class
+
+    template <typename T>
+    class TreeNode {
+     public:
+        T data;
+        vector<TreeNode<T>*> children;
+
+        TreeNode(T data) {
+            this->data = data;
+        }
+
+        ~TreeNode() {
+            for (int i = 0; i < children.size(); i++) {
+                delete children[i];
+            }
+        }
+    };
+
+************************************************************/
+
+TreeNode<int>* maxSumNode(TreeNode<int>* root) {
+    // Write your code here
+    if(root==NULL)
+        return NULL;
+    TreeNode<int>* ans=root;
+    int sum=ans->data;
+    for(int i=0;i<root->children.size();i++)
+    {
+        sum+=root->children[i]->data;
+    }
+    for(int i=0;i<root->children.size();i++)
+    {
+         TreeNode <int>*newans=maxSumNode(root->children[i]);
+
+         int smallsum=newans->data;
+         for(int i=0;i<newans->children.size();i++)
+         {
+             smallsum+=newans->children[i]->data;
+         }
+
+         if(smallsum>sum)
+         {
+             ans=newans;
+             sum=smallsum;
+         }
+       
+    }
+     return ans;
+    
+}
