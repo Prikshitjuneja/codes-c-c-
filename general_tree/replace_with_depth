@@ -1,0 +1,49 @@
+Replace with depth
+Send Feedback
+You are given a generic tree. You have to replace each node with its depth value. You just have to update the data of each node, there is no need to return or print anything.
+Input format :
+
+
+/************************************************************
+
+    Following is the structure for the TreeNode class
+
+    template <typename T>
+    class TreeNode {
+     public:
+        T data;
+        vector<TreeNode<T>*> children;
+
+        TreeNode(T data) {
+            this->data = data;
+        }
+
+        ~TreeNode() {
+            for (int i = 0; i < children.size(); i++) {
+                delete children[i];
+            }
+        }
+    };
+
+************************************************************/
+void replaceWithDepthValue(TreeNode<int>*root,int depth)
+{
+    if(root==NULL)
+    return;
+    root->data=depth;
+
+    for(int i=0;i<root->children.size();i++)
+    {
+        
+        replaceWithDepthValue(root->children[i],  depth+1);
+        
+    }
+    return;
+}
+
+void replaceWithDepthValue(TreeNode<int>* root) {
+    // Write your code here
+    int depth=0;
+     return replaceWithDepthValue(root,depth);
+    
+}
