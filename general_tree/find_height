@@ -1,0 +1,39 @@
+Given a generic tree, find and return the height of given tree.
+
+/************************************************************
+ 
+    Following is the structure for the TreeNode class
+
+    template <typename T>
+    class TreeNode {
+     public:
+        T data;
+        vector<TreeNode<T>*> children;
+    
+        TreeNode(T data) {
+            this->data = data;
+        }
+    
+        ~TreeNode() {
+            for (int i = 0; i < children.size(); i++) {
+                delete children[i];
+            }
+        }
+    };
+
+************************************************************/
+
+int getHeight(TreeNode<int> *root) {
+  // Write your code here
+  if (root->children.size() == 0)
+    return 1;
+    int height=getHeight(root->children[0]);
+
+    for(int i=1;i<root->children.size();i++)
+    {
+           int heightnew=getHeight(root->children[i]);
+            if(heightnew>height)
+            height=heightnew;
+    }
+    return (height+1);
+}
