@@ -1,0 +1,101 @@
+Print nodes at distance k from node
+Send Feedback
+You are given a Binary Tree of type integer, a target node, and an integer value K.
+Print the data of all nodes that have a distance K from the target node. The order in which they would be printed will not matter.
+
+
+/**********************************************************
+
+        Following is the Binary Tree Node class structure
+
+        template <typename T>
+        class BinaryTreeNode {
+        public :
+        T data;
+        BinaryTreeNode<T> *left;
+        BinaryTreeNode<T> *right;
+
+        BinaryTreeNode(T data) {
+                this -> data = data;
+                left = NULL;
+                right = NULL;
+        }
+        };
+
+***********************************************************/
+void print_at_depth(BinaryTreeNode<int>*root,int k)
+{
+
+        //function for finding nodes at depth k
+        if(root==NULL)
+        return;
+
+        if(k==0)
+        {
+                cout<<root->data<<endl;
+                return;
+        }
+        print_at_depth(root->left,  k-1);
+        print_at_depth(root->right,  k-1);
+
+        return;
+}
+int print_nodes(BinaryTreeNode<int>*root,int node,int k)
+{    
+        //this function returns distance from root to node from which nodes have to find
+        if(root==NULL)
+        return -1;
+
+        if (root->data == node)
+
+        /*case when node from which k distance  apart node
+         have to find is root node then
+           actually we have to find nodes at depth k*/
+        {
+          print_at_depth(root, k);//function call for finding nodes at depth k
+          return 0;
+        }
+
+       int ld=print_nodes(root->left,node,k); //recursive call for left part
+       if(ld!=-1)   // if ld==- 1 means that node is not found in left subtree
+      {
+              /* ld is distance of target frim root->left
+              now if ld+1==k => root is at distance k from target so we have to print root*/
+         if (ld + 1 == k)   
+            cout << root->data << endl;
+            /*else go to right subtree and print all nodes having distance k-ld-2
+            note that right child is 2 edges away from left child*/
+         else
+             print_at_depth(root->right,  k-ld-2);//print nodes at distance k fom target in 
+             /*left subtree distace is calculated as ld+1+1+depth=k so depth=k-ld-2
+             depth is distance from right subtree*/  
+            
+        return ld+1;  //return distance of target node from root node
+
+       }
+        
+        /*all same rules apply for right subtree
+        if nodes are not found in left subtree then only we go to right subtree*/
+       int rd=print_nodes(root->right,  node,  k);
+       if(rd!=-1)
+       {
+               if(rd+1==k)
+               cout<<root->data<<endl;
+               else
+               print_at_depth(root->left,  k-rd-2);
+
+               return rd+1;
+       }
+
+       return -1;
+}
+void nodesAtDistanceK(BinaryTreeNode<int> *root, int node, int k) {
+    // Write your code here
+    if (root == NULL)
+      return;
+
+      int distance=print_nodes(root,  node,  k);
+      return;
+
+
+}
