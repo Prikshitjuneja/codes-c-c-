@@ -1,0 +1,137 @@
+Pair sum in a BST
+Send Feedback
+Given a binary search tree and an integer S, find pair of nodes in the BST which sum to S. You can use extra space of the order of O(log n).
+1. Assume BST contains all unique elements.
+2. In a pair, print the smaller element first.
+
+
+/**********************************************************
+
+	Following is the Binary Tree Node class structure
+
+	template <typename T>
+	class BinaryTreeNode {
+    	public: 
+    	T data;
+    	BinaryTreeNode<T> *left;
+    	BinaryTreeNode<T> *right;
+
+    	BinaryTreeNode(T data) {
+        	this->data = data;
+        	left = NULL;
+        	right = NULL;
+    	}
+	};
+	
+***********************************************************/
+#include<stack>
+
+int count_nodes(BinaryTreeNode<int>*root)
+{
+	if(root==NULL)
+	return 0;
+
+	return 1+count_nodes(root->left)+count_nodes(root->right);
+}
+
+void printNodesSumToS(BinaryTreeNode<int> *root, int s) {
+    // Write your code here
+	if(root==NULL)
+	return;
+
+	int total_nodes=count_nodes(root);
+	stack<BinaryTreeNode<int>*>inorder;//stores numbers from smallest i.e.left part
+	stack<BinaryTreeNode<int>*>revinorder;//stores numbers from largestt i.e.right part
+	BinaryTreeNode<int>*temp=root;
+
+	while(temp!=NULL)
+	{
+		inorder.push(temp);
+		temp=temp->left;     //stack filled with left subtree left part
+	}
+	temp=root;
+	while(temp!=NULL)
+	{
+		revinorder.push(temp);
+		temp=temp->right;              //stack filled with right subtree right part
+	}
+	int count=0;
+	while(count<total_nodes-1)
+	{
+		BinaryTreeNode<int>*top1=inorder.top();
+		BinaryTreeNode<int>*top2=revinorder.top();
+
+		if(top1->data+top2->data==s)
+		{
+			cout<<top1->data<<' '<<top2->data<<endl;
+			BinaryTreeNode<int>*top=top1;
+			inorder.pop();
+			count++;
+			/*now after poping in inorder stack we have to fill number just larger than
+			deleted node which is left most element in right tree.*/
+		    if(top->right!=NULL)
+			{
+				top=top->right;
+				while(top!=NULL)
+				{
+					inorder.push(top);
+					top=top->left;
+				}
+			}
+			top=top2;
+			revinorder.pop();
+			count++;
+			/*now after poping inrevinorder stack we have to fill number just smaller than
+			deleted node which is right most element in left tree.*/
+			if(top->left!=NULL)
+			{
+				top=top->left;
+				while(top!=NULL)
+				{
+					revinorder.push(top);
+					top=top->right;
+				}
+			}
+		}
+		else if(top1->data+top2->data>s)
+		{
+			BinaryTreeNode<int>*top=top2;
+			revinorder.pop();
+			count++;
+			/*now after poping inrevinorder stack we have to fill number just smaller than
+			deleted node which is right most element in left tree.*/
+			if(top->left!=NULL)
+			{
+				top=top->left;
+				while(top!=NULL)
+				{
+					revinorder.push(top);
+					top=top->right;
+				}
+			}
+		   
+		}
+		else
+		{
+                BinaryTreeNode<int>*top=top1;
+				inorder.pop();
+				count++;
+				/*now after poping in inorder stack we have to fill number just larger than
+			deleted node which is left most element in right tree.*/
+				if(top->right!=NULL)
+				{
+					top=top->right;
+					while(top!=NULL)
+					{
+						inorder.push(top);
+						top=top->left;
+					}
+				}
+		}
+	}
+
+	
+	return;
+
+	
+}
